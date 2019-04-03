@@ -5,6 +5,9 @@ void act_print(int,int[][2]);
 int act_move(int[][20],int[][2],int,int);
 void drawMap(int[][20]);
 
+//測資50%,預設向右走
+//撞尾巴沒判斷
+//邊輸入邊執行
 int main(void)
 {
     int game_map[20][20],snake[20][2];
