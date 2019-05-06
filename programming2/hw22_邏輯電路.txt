@@ -1,0 +1,56 @@
+以下邏輯電路圖，輸入為 X1, X2, X3，輸出為 Y1, Y2, Y3。 
+
+X1 -->P_Gate----------------------------->Y1 
+| 
+X2 ----------------->Q_Gate--------------->Y2 
+| 
+X3 --------------------------------R_Gate--->Y3 
+
+P_Gate 邏輯閘可設定為 NOT或空，輸入為 X1，輸出為 Y1和 Q_Gate 邏輯閘的輸入。 
+Q_Gate 邏輯閘可設定為 AND 或 OR，輸入為 X2 和 P_Gate 邏輯閘的輸出，輸出為 Y2 和 R_Gate 邏輯閘的輸入。 
+R_Gate 邏輯閘可設定為 AND 或 OR，輸入為 X3 和 Q_Gate 邏輯閘的輸出，輸出為 Y3。 
+輸入 X1、X2、X3，以及設定 P、Q、R、三個邏輯閘的種類。 
+
+輸入說明: 
+第一行依次輸入X1、X2、X3 為 0 或 1，中間以逗號間隔。 
+第二行輸入 P、Q、R 邏輯閘的設定，A 代表 AND 邏輯閘，O 代表 OR 邏輯閘，N 代表 NOT 邏輯閘，E 代表空的邏輯閘，中間以逗號間隔。 
+
+輸出說明: 
+輸出 Y1、Y2、Y3為 0 或 1，中間以逗號間隔。	
+範例: 
+
+Sample Input: 
+0,1,0 
+N,A,O 
+
+Sample Output: 
+1,1,1 
+
+
+------程式碼架構規範之範例--------------------- 
+
+#include 
+#include 
+#define GATEVALUE(TYPE) int(*GateValue)(void) 
+typedef struct _Gate{ 
+GATEVALUE(); 
+}Gate; 
+int GateGetValue(){return 0;} 
+typedef struct _GateAnd{ 
+GATEVALUE(); 
+}GateAnd; 
+int GateAndValue(){return 1;} 
+void CreateGate(Gate *obj){ 
+obj->GateValue = GateGetValue; 
+} 
+void CreateGateAND(GateAnd *obj){ 
+obj->GateValue = GateAndValue; 
+} 
+int main(int argc, char *argv[]){ 
+Gate gate; 
+CreateGate(&gate); 
+GateAnd and; 
+CreateGateAND(&and); 
+printf("Gate = %d, GateAND = %d\n", gate.GateValue(), and.GateValue()); 
+return 0; 
+} 
