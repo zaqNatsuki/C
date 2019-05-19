@@ -1,0 +1,102 @@
+024.模擬 Linux Command-Line Interface 
+題目說明 
+需模擬 Linux Command-Line Interface，檔案須以 結構儲存，其功能如下。 
+
+struct file{ 
+char* name; 
+chat c[];	//儲存內容 
+} 
+
+建立檔案： 
+touch file，建立檔案 
+範例輸入： 
+touch file 
+touch file1 file2 file 3 
+輸入文字檔案： 
+vim file，對檔案進行修改 
+範例輸入： 
+vim file 
+a	//此行代表對文件開始進行寫入，不需寫入至文件內 
+123 
+456 
+789 
+[opation] 
+:w	//保存 
+:q	//退出(若無保存就退出) 則印出 error，回到 Cmd 
+:q!	//強制退出不保存 
+:wq	//保存並退出，回到 Cmd 模式下 
+紅色範圍為資料（寫入至文件內的） 
+
+查看檔案： 
+cat file，查看檔案 
+head file，查看檔案由前面開始 
+tail file，查看檔案由後面開始 
+範例輸入： 
+cat file 
+範例輸出： 
+123 
+456 
+789 
+範例輸入： 
+cat *file (afile or bfile) 
+範例輸出： 
+檔案依照檔名英文字母順序，印出內容 
+範例輸入： 
+cat file* (file1 or file2) 
+範例輸出： 
+檔案依照檔名英文字母順序，印出內容 
+
+範例輸入： 
+head file	//預設前十行 
+範例輸出： 
+123 
+456 
+789 
+範例輸入： 
+head -n 2 file	//印出前兩行 
+範例輸出： 
+123 
+456 
+範例輸入： 
+tail file	//預設倒數十行 
+範例輸出： 
+123 
+456 
+789 
+範例輸入： 
+tail -n 2 file	//倒數兩行 
+範例輸出： 
+456 
+789 
+刪除檔案： 
+rm file，刪除檔案 
+範例輸入： 
+rm file1 
+rm file1 file2 
+列出目前有哪些檔案： 
+ls，列出目前有哪些檔案 
+範例輸入： 
+ls 
+範例輸出： 
+file1 file2 file3 
+結束程式： 
+exit 
+
+範例輸入： 
+touch file1 file2 
+vim file1 
+a 
+1 
+2 
+3 
+:wq 
+vim file2 
+abcd 
+:wq 
+cat file* 
+exit 
+範例輸出： 
+1 
+2 
+3 
+bcd
