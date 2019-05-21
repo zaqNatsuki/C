@@ -53,7 +53,7 @@ void interface(struct file_s *fileDetail,struct dic_sort *dicSort)
             scanf("%s",name);getchar();
             for(i=0;i<touch_num;i++)
             {
-                printf("%s<=>%s\n",name,fileDetail[i].name);
+                //printf("%s<=>%s\n",name,fileDetail[i].name);
                 if(strcmp(name,fileDetail[i].name)==0)
                 {
                     vimFile(&fileDetail[i]);
@@ -68,44 +68,96 @@ void interface(struct file_s *fileDetail,struct dic_sort *dicSort)
             p=strtok(s," ");
             while(p!=NULL)
             {
-                if(searchFile(dicSort[z],p)==1)
+                for(z=0;z<sort_len;z++)
                 {
-                    printf("%s search True\n",dicSort[z].name);
-                    for(i=0;i<touch_num;i++)
+                    if(searchFile(dicSort[z],p)==1)
                     {
-                        if(strcmp(dicSort[z].name,fileDetail[i].name)==0)
+                        //printf("%s search True\n",dicSort[z].name);
+                        for(i=0;i<touch_num;i++)
                         {
-                            output(fileDetail[i],command,-1);
+                            if(strcmp(dicSort[z].name,fileDetail[i].name)==0)
+                            {
+                                output(fileDetail[i],command,-1);
+                            }
                         }
                     }
-                    z++;
                 }
-                else
-                    break;
+                p=strtok(NULL," ");
             }
         }//
         else if(strcmp(command,"head")==0)  //從頭查看檔案
         {
-            return;
-        }//
-        else if(strcmp(command,"tail")==0)  //從尾巴查看檔案
-        {
-            return;
-        }//
-        else if(strcmp(command,"rm")==0)    //移除檔案
-        {
+            int line=0,z=0;
             scanf("%[^\n]",s);getchar();
             p=strtok(s," ");
             while(p!=NULL)
             {
-                for(i=0;i<touch_num;i++)
+                if(strcmp("-n",p)==0)
                 {
-                    if(strcmp(p,fileDetail[i].name)==0)
-                    {
-                        strcpy(fileDetail[i].name,"remove");
-                        break;
-                    }
+                    p=strtok(NULL," ");
+                    line=atoi(p);
                 }
+                else
+                {
+                    for(z=0;z<sort_len;z++)
+                        if(searchFile(dicSort[z],p)==1)
+                        {
+                            for(i=0;i<touch_num;i++)
+                            {
+                                if(strcmp(dicSort[z].name,fileDetail[i].name)==0)
+                                    output(fileDetail[i],command,line);
+                            }
+                        }
+                }
+                p=strtok(NULL," ");
+            }
+        }//
+        else if(strcmp(command,"tail")==0)  //從尾巴查看檔案
+        {
+            int line=0,z=0;
+            scanf("%[^\n]",s);getchar();
+            p=strtok(s," ");
+            while(p!=NULL)
+            {
+                if(strcmp("-n",p)==0)
+                {
+                    p=strtok(NULL," ");
+                    line=atoi(p);
+                }
+                else
+                {
+                    for(z=0;z<sort_len;z++)
+                        if(searchFile(dicSort[z],p)==1)
+                        {
+                            for(i=0;i<touch_num;i++)
+                            {
+                                if(strcmp(dicSort[z].name,fileDetail[i].name)==0)
+                                    output(fileDetail[i],command,line);
+                            }
+                        }
+                }
+                p=strtok(NULL," ");
+            }
+        }//
+        else if(strcmp(command,"rm")==0)    //移除檔案
+        {
+            int z=0;
+            scanf("%[^\n]",s);getchar();
+            p=strtok(s," ");
+            while(p!=NULL)
+            {
+                for(z=0;z<sort_len;z++)
+                    if(searchFile(dicSort[z],p)==1)
+                    {
+                        for(i=0;i<touch_num;i++)
+                        {
+                            if(strcmp(dicSort[z].name,fileDetail[i].name)==0)
+                            {
+                                strcpy(fileDetail[i].name,"remove");
+                                break;
+                            }
+                        }
+                    }
                 p=strtok(NULL," ");
             }
         }
@@ -122,6 +174,8 @@ void interface(struct file_s *fileDetail,struct dic_sort *dicSort)
             break;
         sort_len=dictionary_sort(fileDetail,dicSort,touch_num);
     }
+    /*for(i=0;i<sort_len;i++)
+        printf("%s\n",dicSort[i].name);*/
     return;
 }
 
@@ -133,9 +187,10 @@ void vimFile(struct file_s *file)
     while(1)
     {
         scanf("%[^\n]",check);getchar();
+        if(isWrite==1 && strcmp(":q",check)!=0) isWrite=0;
         if(strcmp(check,":w")==0)
         {
-            isWrite==1;
+            isWrite=1;
             for(i=0;i<time;i++)
                 strcpy(file->content[i],fileContent[i]);
             file->line=time;
@@ -175,6 +230,7 @@ int dictionary_sort(struct file_s *fileDetail,struct dic_sort *dicSort,int len)
             strcpy(dicSort[time++].name,fileDetail[i].name);
     }
     i=0;
+    if(time==0) return 0;
     while(1)
     {
         strcpy(temp,dicSort[i].name);
@@ -221,14 +277,20 @@ int searchFile(struct dic_sort dicSort,char *format)
 
 void output(struct file_s fileDetail,char *command,int line)
 {
-    printf("output\n");
+    //printf("output\n");
     int i;
+    if(line==0) line=10;
+    line=line>fileDetail.line?fileDetail.line:line;
     if(strcmp(command,"head")==0)
     {
+        for(i=0;i<line;i++)
+            printf("%s\n",fileDetail.content[i]);
         return;
     }
     else if(strcmp(command,"tail")==0)
     {
+        for(i=fileDetail.line-line;i<fileDetail.line;i++)
+            printf("%s\n",fileDetail.content[i]);
         return;
     }
     else
