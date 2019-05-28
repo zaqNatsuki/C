@@ -1,0 +1,55 @@
+助教改作業 
+
+助教改作業的方式都是取一疊作業中的最上面的作業來改，最底下的作業是後才改到的，如果這時有人來實驗室補交作業，則會放到作業中最上面，助教下一個要改的作業就會是剛剛補交的作業。助教的一天可能需要改作業、做專案、修課...等，所以沒有辦法一天內改完，到了下班時間，請幫忙告訴助教有哪些同學的作業還沒改到。 
+
+作業要求:本題請使用Linked list實作Stack(先進後出)。 
+typedef struct Homework{ 
+char name[10];//學生名字 
+int isDelay;//是否遲交(遲交True，未遲交False) 
+struct Homework *next;	
+}HW; 
+
+輸入輸出說明: 
+一開始輸入所有作業的學生名字，越早輸入的代表越早交(則放在最底下)，輸入至-1為止，則開始改作業，並有以下三種狀況的指令。 
+本題有三個指令1、2、3 
+1:代表補交作業(push)，並輸入學生名字(如:1 Jeff)，紀錄此學生為遲交。 
+2.:代表改完一份作業(pop)，輸出是否為遲交作業(如:Jeff’s HW is delay/not delay)，如果所有 
+作業已經改完，則輸出Empty。 
+3:代表下班，印出還未改到作業的學生名字、是否遲交(同pop的輸出並由上往下依序換行印 
+出)，如果所有作業已經改完，則輸出Empty。 
+
+Sample Input 
+Jeff 
+Cindy 
+Medhi 
+Candy 
+Mike 
+-1 
+1 Eden 
+1 Jacky 
+2 
+2 
+2 
+2 
+2 
+1 Keven 
+2 
+2 
+2 
+2 
+1 Wendy 
+1 Lucky 
+3 
+
+Sample Output 
+Jacky’s HW is delay 
+Eden’s HW is delay 
+Mike’s HW is not delay 
+Candy’s HW is not delay 
+Medhi’s HW is not delay 
+Keven’s HW is delay 
+Cindy’s HW is not delay 
+Jeff’s HW is not delay 
+Empty 
+Lucky’s HW is delay 
+Wendy’s HW is delay 
