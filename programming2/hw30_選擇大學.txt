@@ -1,0 +1,58 @@
+"大學 University"需要設計成 Structure。 
+
+高中職畢業生希望選擇心目中理想的大學。 
+假設每一大學可以用下列七種屬性表示： 
+
+BC(Big Campus)：代表有大校園。 
+NC(Next to City)：代表鄰近有大城市。 
+CT(Convenient Transportation)：代表交通方便。 
+NS(Next to Sea)：代表靠海。 
+NM(Next to Mountain)：代表依山。 
+HL(Has Lake)：代表校園有湖。 
+NL(Near Landscape)：代表附近有風景區。 
+
+使用者可輸入理想中的大學條件，用 + 號區格的條件代表 "或" 的關係。 
+
+例如： BC NS + CT HL 代表需找出有大校園且靠海，或交通方便且校園有湖的所有大學名稱。 
+
+輸入說明： 
+
+第一行有一個正整數，代表大學個數 n ，請注意 n<=10 。 
+
+其後 n 行，每一行第一項為大學名稱，接著為大學具備的屬性。 
+大學名稱及各屬性間以一個空白分隔。 
+一個大學名稱最多有 10 個字母，各項屬性為 2 個字母。大學與屬性資料均為英文字母， 
+
+接下來的一行有一個正整數，為查詢的個數 m ， m<=10 。 
+
+其後 m 行，每一行有一個查詢。 
+查詢條件為校園屬性組成，每個校園屬性為兩個字元， 
+用 + 號區格的條件代表 "或" 的關係，沒有 + 區隔的條件代表 "且" 的關係。 
+屬性之間以及和 + 之間可能有空白，也可能沒有空白。 
+其格式為以下任一種: 
+
+XXYY+AABB 
+XX YY + AA BB 
+
+意思為屬性條件為: XX且YY，或是 AA 且 BB。 
+
+
+輸出說明： 
+印出 m 行，第 i 列印出第 i 個查詢中，所有符合之大學名稱。 
+若有多個大學符合一個查詢，各大學間以一個空白分隔，以字典方式排序印出。 
+
+Sample Input: 
+
+5 
+NSYSU NC CT NS NM 
+NTU BC NC CT NS 
+NCCU BC NL HL 
+Providence BC NC 
+NTHU BC NS 
+2 
+BC NS + CT HL 
+NM + BC NL + BC NC 
+
+Sample Output: 
+NTHU NTU 
+NCCU NSYSU NTU Providence
