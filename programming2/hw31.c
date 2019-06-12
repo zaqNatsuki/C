@@ -14,7 +14,7 @@ void InPostOrder(binary_t*,char*,char*);
 void PreInOrder(binary_t*,char*,char*);
 void insertTree(binary_t*,int,char);
 void createBinaryTree(char,char*,char,char*);
-void freeAll(binary_t*);
+void freeAll(binary_t*,char*,int*,int);
 
 int main(void)
 {
@@ -27,6 +27,13 @@ int main(void)
 
 void createBinaryTree(char c1,char *s1,char c2,char *s2)
 {
+    int dataNum[20],i,j,len=strlen(s1);
+    char data[20];
+    for(i=0;i<len;i++)
+    {
+        dataNum[i]=-1;
+        data[i]='-';
+    }
     binary_t *binary_tree=(binary_t*)malloc(sizeof(binary_t));
     if(c1=='I')
     {
@@ -38,7 +45,14 @@ void createBinaryTree(char c1,char *s1,char c2,char *s2)
         if(c1=='P') PreInOrder(binary_tree,s1,s2);
         else if(c1=='O') InPostOrder(binary_tree,s1,s2);
     }
-    freeAll(binary_tree);printf("\n");
+    freeAll(binary_tree,data,dataNum,0);printf("\n");
+    for(i=0;i<len;i++)
+    {
+        for(j=0;j<len;j++)
+        {
+            if(dataNum[j]==i) printf("%c",data[j]);
+        }
+    }
     return;
 }
 
@@ -89,12 +103,23 @@ void InPostOrder(binary_t *binary_tree,char *postOrder,char *inOrder)
     return;
 }
 
-void freeAll(binary_t *b)
+void freeAll(binary_t *b,char *data,int *dataNum,int deep)
 {
+    int i=0;
+    while(1)
+    {
+        if(*(data+i)=='-')
+        {
+            dataNum[i]=deep;
+            *(data+i)=b->data;
+            break;
+        }
+        i++;
+    }
     if(b->left!=NULL)
-        freeAll(b->left);
+        freeAll(b->left,data,dataNum,deep+1);
     if(b->right!=NULL)
-        freeAll(b->right);
+        freeAll(b->right,data,dataNum,deep+1);
     //printf("%c ",b->data);
     free(b);
     return;
