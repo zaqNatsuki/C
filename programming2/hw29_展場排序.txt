@@ -1,0 +1,51 @@
+Computex Taipei 台北國際電腦展 
+
+台北國際電腦展在5/28正式展出，小明想要去參觀，但是展場太大了，廠商又很多，所以他想要透過北科資工系學生寫的搜尋程式來告訴他展區的位置。 
+
+作業要求:本題使用Linked list實作Sort 
+typef struct Company{ 
+char name[10];//廠商名字 
+char site[10];//展區位置(代號，如:P0001) 
+char topic[10];//主題(如: AI、Blockchain...) 
+char country[10];//國家 
+int award;//得獎數量 
+} 
+
+輸入輸出說明: 
+一開始輸入所有廠商的資訊(名字、展區位置、主題、國家、得獎數量)，輸入至-1為止，則開始進行搜尋，搜尋方式由使用者輸入五項資訊其中之一和降序或升序(1:降序，2:升序)，則輸出廠商名字、展區位置，並以使用者輸入的資訊排序(依照ASCII)，若開頭字母一樣則比第二字元，以次類推，若使用者輸入exit則代表程式結束。 
+注意: 
+1.若使用者輸入的資訊一樣，則以展區位置決定先後。 
+2.若遇到Abc1、Abc12，則根據字串長度排序。 
+3.五項資訊皆無空格，為連續字串，並包含特殊字元(如:123@Corp、Root///abc….)。 
+4.每次搜尋結果以換行隔開。 
+
+Sample Input 
+Asus P0001 chatBot Taiwan 10 
+Acer P0002 computer Taiwan 7 
+CyberLink P0012 AI Taiwan 1 
+MICRO-STAR A1234 gaming Taiwan 4 
+GIGABYTE G1564 laptop Taiwan 1 
+-1 
+name 2 
+award 1 
+country 2 
+exit 
+
+Sample Output 
+Acer P0002 
+Asus P0001 
+CyberLink P0012 
+GIGABYTE G1564 
+MICRO-STAR A1234 
+
+Asus P0001 
+Acer P0002 
+MICRO-STAR A1234 
+CyberLink P0012 
+GIGABYTE G1564 
+
+MICRO-STAR A1234 
+GIGABYTE G1564 
+Asus P0001 
+Acer P0002 
+CyberLink P0012
